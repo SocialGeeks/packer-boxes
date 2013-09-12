@@ -60,7 +60,7 @@
       "sudo mkdir /usr/ports && cd /usr/ports",
       "sudo portsnap fetch extract",
       "cd /usr/ports/emulators/virtualbox-ose-additions",
-      "make install clean",
+      "sudo make install clean",
       "cd /home/vagrant",
       "rm VBoxGuestAdditions.iso"
     ]
