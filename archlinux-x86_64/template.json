@@ -1,0 +1,38 @@
+{
+  "builders": [{
+    "type": "virtualbox",
+    "guest_os_type": "Linux",
+    "iso_url": "http://cake.lib.fit.edu/archlinux/iso/2013.09.01/archlinux-2013.09.01-dual.iso",
+    "iso_checksum": "f87e89a502fb2d1f30ca0f9a927c9a91",
+    "iso_checksum_type": "md5",
+    "ssh_username": "root",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "10000s",
+    "http_directory": "http",
+    "shutdown_command": "sudo halt -p",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<enter>",
+      "<wait10><wait5>",
+      "gdisk /dev/sda<enter>",
+      "o<enter>y<enter>",
+      "n<enter>1<enter><enter>+100M<enter><enter>",
+      "c<enter>/boot<enter>",
+      "n<enter>2<enter><enter>+3G<enter>8200<enter>",
+      "n<enter>3<enter><enter>+12G<enter><enter>",
+      "c<enter>3<enter>/<enter>",
+      "n<enter>4<enter><enter><enter><enter>",
+      "c<enter>4<enter>/home<enter>",
+      "w<enter>y<enter><wait5>",
+      "cd /tmp<enter>",
+      "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/post-install.sh"
+    ]
+  }],
+  "post-processors": ["vagrant"]
+}
