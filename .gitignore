@@ -1,6 +1,4 @@
 packer_cache
 packer_virtualbox_virtualbox.box
 .vagrant
-*/packer_cache
-*/packer_virtualbox_virtualbox.box
-*/.vagrant
+output-virtualbox
