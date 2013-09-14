@@ -7,6 +7,7 @@ echo 'nameserver 8.8.8.8' > /etc/resolv.conf
 
 # Disable SSH root login
 sed -i -e 's/\#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+passwd -l root
 
 # Install and set up VirtualBox Guest Additions
 pacman -S --noconfirm virtualbox-guest-utils
@@ -15,7 +16,6 @@ vboxguest
 vboxsf
 vboxvideo
 EOF
-groupadd vboxsf
 
 # Setup vagrant user
 pacman --noconfirm -S bash wget vim
@@ -26,12 +26,12 @@ vagrant
 vagrant
 EOF
 chsh -s /bin/bash vagrant
-mkdir -m 700 /home/vagrant/.ssh
-wget --no-check-certificate \
-  'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' \ 
-  -o /home/vagrant/.ssh/authorized_keys
-chmod 600 /home/vagrant/.ssh/authorized_keys
-chown -R vagrant:vagrant /home/vagrant/.ssh
+cd /home/vagrant
+mkdir -m 700 .ssh
+wget https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub
+mv vagrant.pub .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+chown -R vagrant:vagrant .ssh
 sed -i -e 's/\\#Pub/Pub/g' /etc/ssh/sshd_config
 
 rm /root/VBoxGuestAdditions.iso

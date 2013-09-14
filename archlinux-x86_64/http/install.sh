@@ -75,13 +75,6 @@ systemctl enable sshd.service
 # Setup syslinux boot loader
 pacman --noconfirm -S gptfdisk syslinux
 syslinux-install_update -iam
-
-# Setup user account
-useradd -d /home/vagrant -G wheel -m -s /bin/sh vagrant
-passwd vagrant<<EOF
-vagrant
-vagrant
-EOF
 ENDCHROOT
 
 # Umount partitions and reboot into working system
