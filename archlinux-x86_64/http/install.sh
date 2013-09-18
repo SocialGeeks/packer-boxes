@@ -43,8 +43,6 @@ locale-gen
 echo 'KEYMAP=us' > /etc/vconsole.conf
 echo 'vagrant-arch' > /etc/hostname
 
-mkinitcpio -p linux
-
 # PACMAN_REFLECTOR_ARGS can be used to pick a suitable mirror for pacman
 if [ -z "$PACMAN_REFLECTOR_ARGS" ]; then
   export PACMAN_REFLECTOR_ARGS='--verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist'
