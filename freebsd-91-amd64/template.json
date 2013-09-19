@@ -42,7 +42,14 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/post-install.sh"
+      "scripts/time.sh",
+      "scripts/ports.sh",
+      "scripts/upgrade.sh",
+      "scripts/virtualbox.sh",
+      "scripts/nfs.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh",
+      "scripts/cleanup.sh"
     ]
   }],
   "post-processors": ["vagrant"]
