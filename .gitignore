@@ -3,3 +3,4 @@ packer_virtualbox_virtualbox.box
 .vagrant
 output-virtualbox
 *.swp
+Vagrantfile
