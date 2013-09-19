@@ -9,7 +9,7 @@
     "ssh_password": "toor",
     "ssh_wait_timeout": "10000s",
     "http_directory": "http",
-    "shutdown_command": "sudo halt -p",
+    "shutdown_command": "halt -p",
     "boot_wait": "5s",
     "boot_command": [
       "<esc><wait>",
@@ -19,7 +19,11 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/post-install.sh"
+      "scripts/upgradepackages.sh",
+      "scripts/dev.sh",
+      "scripts/virtualbox.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh"
     ]
   }],
   "post-processors": ["vagrant"]
