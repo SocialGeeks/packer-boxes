@@ -31,7 +31,9 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/post-install.sh"
+      "scripts/virtualbox.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh"
     ]
   }],
   "post-processors": ["vagrant"]
