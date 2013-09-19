@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sudo -s sh<<EOF
+
 # As sharedfolders are not in defaults ports tree
 # We will use vagrant via NFS
 # Enable NFS
