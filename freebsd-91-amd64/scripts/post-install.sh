@@ -15,15 +15,17 @@ ntpdate -v -b in.pool.ntp.org
 date > /etc/vagrant_box_build_time
 
 # Install kernel sources for use with the virtualbox-ose-additions port
-#cat >> src.sup <<EOT
-#*default host=cvsup5.FreeBSD.org 
-#*default base=/var/db 
-#*default prefix=/usr 
-#*default release=cvs tag=. 
-#*default compress delete use-rel-suffix 
-#src-sys
-#EOT
-#csup src.sup && rm src.sup
+cat >> src.sup <<EOT
+*default host=cvsup5.FreeBSD.org 
+*default base=/var/db 
+*default prefix=/usr 
+*default release=cvs tag=. 
+*default compress delete use-rel-suffix 
+src-all
+EOT
+csup src.sup && rm src.sup
+cd /usr/src
+make build32 install32
 
 # allow freebsd-update to run fetch without stdin attached to a terminal
 sed 's/\[ ! -t 0 \]/false/' /usr/sbin/freebsd-update > /tmp/freebsd-update
