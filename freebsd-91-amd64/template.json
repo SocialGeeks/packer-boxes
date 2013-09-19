@@ -5,9 +5,10 @@
     "iso_url": "http://ftp.freebsd.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/9.1/FreeBSD-9.1-RELEASE-amd64-disc1.iso",
     "iso_checksum": "f0a320fd52383c42649d48ea545915a9",
     "iso_checksum_type": "md5",
+    "http_directory": "http",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
-    "ssh_wait_timeout": "900s",
+    "ssh_wait_timeout": "10000s",
     "shutdown_command": "sudo halt -p",
     "boot_wait": "5s",
     "boot_command": [
@@ -29,40 +30,19 @@
       "yvagrant<enter><enter><enter><enter>wheel<enter><enter><enter><enter><enter><enter><enter><enter>vagrant<enter>vagrant<enter>yes<enter>yes<enter>no<enter>",
       "<enter>",
       "<wait><wait><wait>",
-      "n",
-      "<enter>",
-      "<wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
-      "<enter>",
-      "<wait10><wait10><wait5>",
-      "root<enter>vagrant<enter>",
-      "pkg_add -r sudo<enter>",
-      "<wait10><wait10><wait10><wait10><wait10><wait10>",
-      "<wait10><wait10><wait10><wait10><wait10><wait10><wait5>",
-      "sed -i -e 's/\\# \\%wheel ALL=(ALL) NOPASSWD/\\%wheel ALL=(ALL) NOPASSWD/g' /usr/local/etc/sudoers<enter>",
-      "pkg_add -r bash<enter>",
-      "<wait10><wait10><wait10><wait5>",
+      "y",
+      "<wait10>",
       "passwd vagrant<enter>vagrant<enter>vagrant<enter>",
-      "su - vagrant<enter>",
-      "chsh -s /usr/local/bin/bash<enter>vagrant<enter>",
-      "exit<enter>",
-      "echo 'vboxguest_enable=\"YES\"' >> /etc/rc.conf<enter>",
-      "echo 'vboxservice_enable=\"YES\"' >> /etc/rc.conf<enter>",
-      "exit<enter>"
+      "cd /tmp<enter>",
+      "fetch http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh<enter>",
+      "chmod +x /tmp/install.sh<enter>",
+      "/tmp/install.sh<enter>"
     ]
   }],
   "provisioners": [{
     "type": "shell",
-    "inline": [
-      "sudo sed -i -e 's/\\# Defaults     env_keep += \"PKG/Defaults     env_keep += \"PKG/g' /usr/local/etc/sudoers",
-      "fetch https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub",
-      "mkdir .ssh",
-      "mv vagrant.pub .ssh/authorized_keys",
-      "sudo mkdir /usr/ports && cd /usr/ports",
-      "sudo portsnap fetch extract",
-      "cd /usr/ports/emulators/virtualbox-ose-additions",
-      "sudo make install clean",
-      "cd /home/vagrant",
-      "rm VBoxGuestAdditions.iso"
+    "scripts": [
+      "scripts/post-install.sh"
     ]
   }],
   "post-processors": ["vagrant"]
