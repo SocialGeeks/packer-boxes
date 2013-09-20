@@ -31,6 +31,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
+      "scripts/time.sh",
       "scripts/virtualbox.sh",
       "scripts/ssh.sh",
       "scripts/user.sh"
