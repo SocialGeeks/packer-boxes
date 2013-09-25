@@ -9,6 +9,9 @@ sudo -s sh<<EOF
 # Install dependencies, from packages, for virtualbox-ose-additions
 pkg_add -r yasm
 pkg_add -r dev86
+pkg_add -r flex
+pkg_add -r gettext
+pkg_add -r perl
 
 # Install virtualbox-ose-additions from ports (to get latest version)
 cd /usr/ports/emulators/virtualbox-ose-additions
