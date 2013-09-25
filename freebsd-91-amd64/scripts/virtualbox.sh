@@ -6,14 +6,11 @@
 
 sudo -s sh<<EOF
 
-# Install and set up VirtualBox Guest Additions and dependencies
+# Install dependencies, from packages, for virtualbox-ose-additions
 pkg_add -r yasm
-pkg_add -r as86
-pkg_add -r xsltproc
-pkg_add -r kmk
-pkg_add -r gtar
-pkg_add -r cdrecord
+pkg_add -r dev86
 
+# Install virtualbox-ose-additions from ports (to get latest version)
 cd /usr/ports/emulators/virtualbox-ose-additions
 make install -DBATCH
 echo 'vboxdrv_load="YES"' >> /boot/loader.conf
