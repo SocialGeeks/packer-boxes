@@ -34,9 +34,7 @@
       "<wait10>",
       "passwd vagrant<enter>vagrant<enter>vagrant<enter>",
       "cd /tmp<enter>",
-      "fetch http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh<enter>",
-      "chmod +x /tmp/install.sh<enter>",
-      "/tmp/install.sh<enter>"
+      "fetch http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
     ]
   }],
   "provisioners": [{
