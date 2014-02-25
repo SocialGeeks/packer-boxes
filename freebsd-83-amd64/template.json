@@ -1,6 +1,6 @@
 {
   "builders": [{
-    "type": "virtualbox",
+    "type": "virtualbox-iso",
     "guest_os_type": "FreeBSD_64",
     "iso_url": "http://ftp.freebsd.org/pub/FreeBSD/releases/amd64/ISO-IMAGES/8.3/FreeBSD-8.3-RELEASE-amd64-disc1.iso",
     "iso_checksum": "26d4870f3a310a95e488ed14dd8e36eb52e857878f2b238b3b91e65c101eee93",
