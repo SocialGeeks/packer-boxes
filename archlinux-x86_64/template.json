@@ -2,8 +2,8 @@
   "builders": [{
     "type": "virtualbox-iso",
     "guest_os_type": "Linux",
-    "iso_url": "http://cake.lib.fit.edu/archlinux/iso/2013.12.01/archlinux-2013.12.01-dual.iso",
-    "iso_checksum": "1b25847658fb94ed92beef9d5e1f3bb2",
+    "iso_url": "http://cake.lib.fit.edu/archlinux/iso/2014.03.01/archlinux-2014.03.01-dual.iso",
+    "iso_checksum": "d0c93ab40c4fd8959bfb5c7e5989c777",
     "iso_checksum_type": "md5",
     "ssh_username": "root",
     "ssh_password": "vagrant",
