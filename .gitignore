@@ -1,6 +1,7 @@
 packer_cache
-packer_virtualbox_virtualbox.box
+*.box
 .vagrant
 output-virtualbox
 *.swp
 Vagrantfile
+
