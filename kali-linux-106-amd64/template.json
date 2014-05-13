@@ -1,7 +1,7 @@
 {
   "builders": [{
     "type": "virtualbox-iso",
-    "guest_os_type": "Linux",
+    "guest_os_type": "Linux_64",
     "iso_url": "http://cdimage.kali.org/kali-latest/amd64/kali-linux-1.0.6-amd64.iso",
     "iso_checksum": "281ddb3d14619a973e254b8f484b7fe27defa822",
     "iso_checksum_type": "sha1",
