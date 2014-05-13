@@ -1,6 +1,8 @@
 {
   "builders": [{
     "type": "virtualbox-iso",
+    "headless": true,
+    "vm_name": "packer-arch-64",
     "guest_os_type": "ArchLinux_64",
     "iso_url": "http://mirrors.xmission.com/archlinux/iso/2014.05.01/archlinux-2014.05.01-dual.iso",
     "iso_checksum": "007654f3f18da66f761611c1e645fca2fb194c5b",
