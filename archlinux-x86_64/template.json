@@ -1,0 +1,40 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "vm_name": "packer-arch-x86_64",
+    "guest_os_type": "ArchLinux_64",
+    "iso_url": "http://mirrors.xmission.com/archlinux/iso/2014.07.03/archlinux-2014.07.03-dual.iso",
+    "iso_checksum": "fb183aa53b5bb895223111cd5319bddef8ff8f5f",
+    "iso_checksum_type": "sha1",
+    "ssh_username": "root",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "10000s",
+    "http_directory": "http",
+    "shutdown_command": "sudo halt -p",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<enter>",
+      "<wait10><wait5>",
+      "gdisk /dev/sda<wait><enter>",
+      "o<enter>y<enter>",
+      "n<enter>1<enter><enter>+100M<enter><enter><wait>",
+      "c<enter>/boot<enter><wait>",
+      "n<enter>2<enter><enter>+3G<wait><enter>8200<wait><enter>",
+      "n<enter>3<enter><enter><enter><enter><wait>",
+      "c<enter>3<enter>/<enter>",
+      "w<enter>y<enter><wait5>",
+      "cd /tmp<enter>",
+      "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/time.sh",
+      "scripts/virtualbox.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh"
+    ]
+  }],
+  "post-processors": ["vagrant"]
+}

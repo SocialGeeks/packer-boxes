@@ -1,0 +1,11 @@
+*.box
+*.swp
+
+packer_cache
+output-virtualbox
+output-virtualbox-iso
+output-virtualbox-ovf
+
+.vagrant
+Vagrantfile
+

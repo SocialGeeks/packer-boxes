@@ -1,0 +1,31 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "vm_name": "packer-kali-106-amd64",
+    "guest_os_type": "Linux_64",
+    "iso_url": "http://cdimage.kali.org/kali-latest/amd64/kali-linux-1.0.6-amd64.iso",
+    "iso_checksum": "281ddb3d14619a973e254b8f484b7fe27defa822",
+    "iso_checksum_type": "sha1",
+    "ssh_username": "root",
+    "ssh_password": "toor",
+    "ssh_wait_timeout": "10000s",
+    "http_directory": "http",
+    "shutdown_command": "halt -p",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<esc><wait>",
+      "/install/vmlinuz initrd=/install/initrd.gz append vga=788 -- quiet url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg locale=en_US keymap=us hostname=kali domain=local.lan<enter>"
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/upgradepackages.sh",
+      "scripts/dev.sh",
+      "scripts/virtualbox.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh"
+    ]
+  }],
+  "post-processors": ["vagrant"]
+}
