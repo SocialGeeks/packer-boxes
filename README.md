@@ -17,10 +17,7 @@ This example will create an Arch Linux x86_64 base vagrant box and then import i
 	git clone git@github.com:SocialGeeks/packer-boxes.git  
 	cd packer-boxes/archlinux-x86_64
 	packer build template.json  
-	vagrant box remove arch virtualbox  
-	vagrant box add arch packer_virtualbox_virtualbox.box  
-
-_Note:_ this particular base box can be used with the [Vagrant file in arch-patsy](https://github.com/SocialGeeks/arch-patsy).  
+	vagrant box add archlinux-x86_64 packer_virtualbox_virtualbox.box  
 
 From there you can use a pre-configured Vagrantfile or just change into an empty directory and use the "vagrant init <boxname>" command to create a new Vagrantfile.  Then use these commands to create the vagrant instance inside VirtualBox, setup port forwarding to SSH and then login with the vagrant user. From there you have full sudo access to manage the machine.  
 
