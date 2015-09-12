@@ -7,7 +7,7 @@ passwd -l root
 
 # Setup vagrant user
 pacman --noconfirm -S bash wget vim
-useradd -m -G wheel,vboxsf -r vagrant
+useradd -m -G wheel -r vagrant
 chsh -s /bin/bash vagrant
 cd /home/vagrant
 mkdir -m 700 .ssh
