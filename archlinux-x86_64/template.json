@@ -24,6 +24,8 @@
       "c<enter>3<enter>/<enter>",
       "w<enter>y<enter><wait5>",
       "cd /tmp<enter>",
+      "echo -n /dev/sda > .primary_disk<enter>",
+      "echo -n enp0s3 > .primary_interface<enter>",
       "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
     ]
   }],

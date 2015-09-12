@@ -1,20 +1,22 @@
 #!/bin/sh
+DISK=$(cat .primary_disk)
+IFACE=$(cat .primary_interface)
 
 # Most of this script was lifted from https://github.com/jedi4ever/veewee/tree/master/templates/archlinux-x86_64
 # and changed to work with packer with my own customizations
 
 # Format partitions created in the boot_command
-mkfs.ext4 /dev/sda1
-mkfs.ext4 /dev/sda3
+mkfs.ext4 ${DISK}1
+mkfs.ext4 ${DISK}3
 
 # Format and turn on swap partition
-mkswap /dev/sda2
-swapon /dev/sda2
+mkswap ${DISK}2
+swapon ${DISK}2
 
 # Mount other partitions
-mount /dev/sda3 /mnt
+mount ${DISK}3 /mnt
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount ${DISK}1 /mnt/boot
 
 # Get reflector so that we can update the mirrorlist
 pacstrap /mnt base reflector
@@ -64,17 +66,25 @@ sed -i -e 's/\# \%wheel ALL=(ALL) NOPASSWD/\%wheel ALL=(ALL) NOPASSWD/g' /etc/su
 # Setup SSH and networking
 pacman --noconfirm -S openssh
 sed -i -e 's/\#Pub/Pub/g' /etc/ssh/sshd_config
-systemctl enable dhcpcd@enp0s3.service
+systemctl enable dhcpcd@${IFACE}.service
 systemctl enable sshd.service
+
+# Enable SSH root login
+sed -i -e 's/\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Setup syslinux boot loader
 pacman --noconfirm -S gptfdisk syslinux
 syslinux-install_update -iam
+
+# Fix boot disk if needed
+if [[ "${DISK}" != "/dev/sda" ]]; then 
+    sed -i "s|/dev/sda|${DISK}|g" /boot/syslinux/syslinux.cfg
+fi
 ENDCHROOT
 
 # Umount partitions and reboot into working system
-umount /dev/sda1
-umount /dev/sda3
-swapoff /dev/sda2
+umount ${DISK}1
+umount ${DISK}3
+swapoff ${DISK}2
 reboot
 
