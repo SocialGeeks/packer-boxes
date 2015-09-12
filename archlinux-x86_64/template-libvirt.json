@@ -1,0 +1,49 @@
+{
+  "variables": {
+    "user": "root",
+    "password": "vagrant",
+    "disk_size": "80000"
+  },
+
+  "builders": [{
+    "name": "packer-arch-x86_64",
+    "type": "qemu",
+    "format": "qcow2",
+    "accelerator": "kvm",
+    "disk_size": "{{ user `disk_size`}}",
+    "iso_url": "http://mirror.rit.edu/archlinux/iso/2015.09.01/archlinux-2015.09.01-dual.iso",
+    "iso_checksum": "4eb065d1b7639846703422a30c622eae0a558622",
+    "iso_checksum_type": "sha1",
+    "ssh_username": "{{user `user`}}",
+    "ssh_password": "{{user `password`}}",
+    "ssh_wait_timeout": "10000s",
+    "http_directory": "http",
+    "shutdown_command": "sudo halt -p",
+    "boot_wait": "10s",
+    "boot_command": [
+      "<enter>",
+      "<wait10><wait10>",
+      "gdisk /dev/vda<wait><enter>",
+      "o<enter>y<enter>",
+      "n<enter>1<enter><enter>+100M<enter><enter><wait>",
+      "c<enter>/boot<enter><wait>",
+      "n<enter>2<enter><enter>+3G<wait><enter>8200<wait><enter>",
+      "n<enter>3<enter><enter><enter><enter><wait>",
+      "c<enter>3<enter>/<enter>",
+      "w<enter>y<enter><wait5>",
+      "cd /tmp<enter>",
+      "echo -n /dev/vda > .primary_disk<enter>",
+      "echo -n eth0 > .primary_interface<enter>",
+      "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/time.sh",
+      "scripts/ssh.sh",
+      "scripts/user.sh"
+    ]
+  }],
+  "post-processors": ["vagrant"]
+}
