@@ -42,7 +42,8 @@
     "scripts": [
       "scripts/time.sh",
       "scripts/ssh.sh",
-      "scripts/user.sh"
+      "scripts/user.sh",
+      "scripts/packages.sh"
     ]
   }],
   "post-processors": ["vagrant"]
